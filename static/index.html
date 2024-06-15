@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="apple-touch-icon" sizes="180x180" href="favicon_io/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon_io/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon_io/favicon-16x16.png">
+   
+    <title>JSSPORTAl</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="index.css">
+</head>
+  <body>
+    
+  <div class="loginform mt-35 " id="login">
+        
+        <div class="jsslogo">
+            <img src="../images/jsslogoicon.jpeg" alt="jss logo" >
+        </div>
+        <h2>JSS ACADEMY OF TECHNICAL EDUCATION</h2>
+        <div class="radio">
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="role" id="student" value="student">
+          <label class="form-check-label" for="inlineRadio1">STUDENT</label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="role" id="teacher" value="teacher">
+          <label class="form-check-label" for="inlineRadio2">TEACHER</label>
+        </div>
+      </div>
+        
+        <p>Login</p>
+        
+        <div id="studentContent" class="form-floating">
+          <form action="/student/login" method="post">
+            <div class="form-floating mb-1">
+              <input type="email" class="form-control" id="emailInput" placeholder="Enter your email" name="student_email">
+              <label for="emailInput">Email</label>
+            </div>
+            <div class="form-floating mb-1">
+              <input type="password" class="form-control" id="passwordInput" placeholder="Password" name="student_password">
+              <label for="passwordInput">Password</label>
+            </div>
+            <div class="buttons">
+              <button type="submit" class="btn btn-secondary">Login</button>
+            </div>
+          </form>
+          <div class="signup">Don't have a Login, then <a href="" target="" id="signuppage">Sign Up</a></div>
+        </div>
+        
+        <div id="teacherContent" class="form-floating" style="display: none;">
+          <form action="/teacher/login" method="post">
+            <div class="form-floating mb-1">
+              <input type="email" class="form-control" id="teacherEmail" placeholder="Enter your email" name="teacher_email">
+              <label for="teacherEmail">Email</label>
+            </div>
+            <div class="form-floating mb-1">
+              <input type="password" class="form-control" id="teacherPassword" placeholder="Password" name="teacher_password">
+              <label for="teacherPassword">Password</label>
+            </div>
+            <div class="buttons">
+              <button type="submit" class="btn btn-secondary">Login</button>
+            </div>
+          </form>
+        </div>
+    </div>
+    <script src="./myscript.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    
+  </body>
+</html>

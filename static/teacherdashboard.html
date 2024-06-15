@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>| JSSATEN |</title>
+    <link rel="stylesheet" href="teacherdashboard.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+</head>
+<body>
+    <header class="head">
+        <img src="./images/jsslogoicon.jpeg" alt="" class="logo">
+        <h2 class="headpara">JSS Academy of Technical Education</h2>
+    </header>
+    
+    <div style="display: flex; flex-direction: row;">
+        <!-- Navbar -->
+        <div class="navbar">
+            <!-- Profile Section -->
+            <div class="home" id="nam">
+                <div class="pic">
+                    <img src="images/Collegeimage.jpeg" id="profilePic">
+                </div>
+                <p class="text" id="appendedValues"></p>
+            </div>
+            
+            <!-- Home Button -->
+            <div class="home">
+                <i class="bi bi-house-door-fill icon"></i>
+                <button class="text">HOME</button>
+            </div>
+            
+            <!-- Time Table Button -->
+            <div class="home">
+                <i class="bi bi-calendar-date-fill icon"></i>
+                <button class="text">TIME TABLE</button>
+            </div>
+            
+            <!-- Assignment Button -->
+            <div class="home">
+                <i class="bi bi-pencil-square icon"></i>
+                <button class="text"  onclick="assignmentuploadvisible()" >ASSIGNMENT</button>
+            </div>
+            
+            <!-- Logout Button -->
+            <div class="home" style="margin-bottom:auto ;">
+                <i class="bi bi-box-arrow-left icon"></i>
+                <button class="text" id="logout">Log Out</button>
+            </div>
+        </div>
+        
+        <!-- Search Form -->
+        <div style="display: flex; flex-direction: column; width: 100%;">
+        <div>
+        <div>
+            <form action="/teacher/check" method="post" id="searchForm">
+                <label for="selectOptionsection">Section:</label>
+                <select name="section" id="selectOptionsection" style="height: 30px;">
+                    <!-- Options for Section -->
+                    <option value="">Choose</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                </select>
+                
+                <!-- Hidden Inputs for Section and Subject -->
+                <input type="hidden" name="sectioninput" id="sectioninput" value="">
+                <br>
+                <label for="selectOptionsubject">Subject:</label>
+                <select name="subject" id="selectOptionsubject" style="height: 30px;">
+                    <!-- Options for Subject -->
+                    <option value="">Choose</option>
+                    <option value="DSTL">DSTL</option>
+                    <option value="COA">COA</option>
+                    <option value="CS">CS</option>
+                    <option value="DS">DS</option>
+                    <option value="EE">EE</option>
+                    <option value="TC">TC</option>
+                </select>
+                
+                <!-- Hidden Inputs for Subject -->
+                <input type="hidden" name="subjectinput" id="subjectinput" value="">
+                
+                <!-- Search Button -->
+                <button type="submit" class="btn btn-dark" id="searchButton">Search</button>
+            </form>
+        </div>
+    
+    
+    <!-- Teacher Data Table -->
+    <div id="teacherData" style="display: none;">
+        <table border="1" style="width: 100%;">
+            <thead>
+                <tr>
+                    <th class="tablehead">Name</th>
+                    <th class="tablehead">Email</th>
+                    <th class="tablehead">Subject</th>
+                    <th class="tablehead">Marks</th>
+                    <th class="tablehead">Action</th>
+                </tr>
+            </thead>
+            <tbody id="dataBody"></tbody>
+        </table>
+    </div>
+</div>
+    <!-- Assignment Upload Form -->
+    <div class="upload-form" id="assignmentuploadvisible" style="display: none;">
+        <form action="/upload" method="post" enctype="multipart/form-data">
+            <label for="assignment">Upload Assignment:</label>
+            <input type="file" name="assignment" id="assignment" class="form-control" accept=".pdf"/>
+            <button type="submit" class="btn btn-dark">Upload</button>
+        </form>
+    </div>
+</div>
+</div>
+    <!-- Edit Marks Modal -->
+    <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editModalLabel">Edit Marks</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <label for="editMarks">Enter new marks:</label>
+                    <input type="text" class="form-control" id="editMarks">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" onclick="handleEditMarks()">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Bootstrap JavaScript Links -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+
+    <!-- Custom JavaScript -->
+    <script>
+        // Event listener for logout button
+        document.getElementById('logout').addEventListener('click', function() {
+            window.location.href = 'index.html'; // Redirect to the login page
+        });
+
+        // Event listener for form submission
+        document.addEventListener('DOMContentLoaded', function () {
+            const teacherData = document.getElementById('teacherData');
+            const searchForm = document.getElementById('searchForm');
+
+            searchForm.addEventListener('submit', function (event) {
+                event.preventDefault(); // Prevent the default form submission
+
+                const sectionValue = document.getElementById('selectOptionsection').value;
+                const subjectValue = document.getElementById('selectOptionsubject').value;
+
+                // Fetch data from your API endpoint using the obtained values
+                fetch('/teacher/check', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        sectioninput: sectionValue,
+                        subjectinput: subjectValue
+                    })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    const tbody = document.getElementById('dataBody');
+                    tbody.innerHTML = ''; // Clear existing data
+
+                    data.forEach(entry => {
+                        const row = document.createElement('tr');
+                        row.innerHTML = `
+                            <td>${entry.name}</td>
+                            <td>${entry.mail_id}</td>
+                            <td>${entry.subject}</td>
+                            <td>${entry.marks}</td>
+                            <td>
+                                <div class="edit-button-container">
+                                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editModal" onclick="openEditModal('${entry.mail_id}', '${entry.marks}')">EDIT</button>
+                                </div>
+                            </td>
+                        `;
+                        tbody.appendChild(row);
+                    });
+
+                    teacherData.style.display = data.length > 0 ? 'block' : 'none';
+                })
+                .catch(error => console.error('Error fetching data:', error));
+            });
+        });
+
+        function openEditModal(mailId, currentMarks) {
+            document.getElementById('editMarks').value = currentMarks;
+            document.getElementById('editMarks').dataset.mailId = mailId;
+        }
+
+        function handleEditMarks() {
+            const updatedMarks = document.getElementById('editMarks').value;
+            const mailId = document.getElementById('editMarks').dataset.mailId;
+
+            fetch('/update-marks', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    mailId: mailId,
+                    newMarks: updatedMarks,
+                }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Marks updated successfully:', data);
+                document.getElementById('searchForm').dispatchEvent(new Event('submit'));
+            })
+            .catch(error => console.error('Error updating marks:', error));
+        }
+        function assignmentuploadvisible() {
+    const assignmentUploadContainer = document.getElementById("assignmentuploadvisible");
+    assignmentUploadContainer.style.display = "block"; // Add quotes around "block"
+}
+document.addEventListener('DOMContentLoaded', function () {
+    const teacherNameEncoded = getCookie('teacher_name');
+    const teacherName = decodeURIComponent(teacherNameEncoded);
+    console.log('Teacher Name:', teacherName);
+
+    // Use the studentName variable as needed in your page
+    const nameDisplay = document.getElementById('appendedValues');
+    
+    // Check if studentName is not null (i.e., the name parameter is present in the cookie)
+    if (teacherName !== null) {
+        // Update the content of the HTML element with the student's name
+        nameDisplay.textContent = `Welcome, ${teacherName}!`;
+    } else {
+        // Handle the case where the name parameter is not present
+        nameDisplay.textContent = 'Welcome!';
+    }
+});
+
+function getCookie(name) {
+    const value = `; ${document.cookie}`;
+    const parts = value.split(`; ${name}=`);
+    if (parts.length === 2) return parts.pop().split(';').shift();
+}
+    </script>
+</body>
+</html>

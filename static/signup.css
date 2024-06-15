@@ -1,0 +1,57 @@
+body{
+    background-color:#ead9d9;
+    padding: 1px 20px ;
+    background-image: url(../images/Collegeimage.jpeg);
+    font-family: Arial, Helvetica, sans-serif;
+}
+.signupform{
+    width: fit-content;
+    display: flex;
+    
+    margin: 0 auto;
+    padding: 1px 20px ;
+    border: 5px solid grey;
+    background-color: rgb(237, 237, 237);
+    
+}
+/*.form{
+    background-color: rgb(237, 237, 237);
+    border: 5px solid grey;
+    padding: 1px 20px ;
+    margin: 25px 20px ;
+    border-width: 3px;
+    }*/
+h2{
+    text-align: center;
+  }
+
+input[type="text"],input[type="number"],input[type="password"],input[type="email"]{
+   width: 100%;
+   border: hidden;
+   padding: 5px;
+   margin: 5px;
+}
+a{
+    text-decoration: none;
+}
+.buttons{
+    text-align: center;
+ }
+ .jsslogo img{
+    height: 80px;
+    width: 80px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+    
+
+.heading h2{
+    color: #004999;
+    text-align: center;
+    margin-bottom:50px;
+    font-weight: bolder;
+    padding-top: 30px;
+    padding-bottom: 0px;
+    
+}

@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>| JSSATEN |</title>
+    <link rel="stylesheet" href="studentdashboard.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+</head>
+<body>
+    <header class="head">
+        
+            <img src="./images/jsslogoicon.jpeg" alt="" class="logo">
+         
+            <h2 class="headpara">JSS Academy of Technical Education</h2>
+        
+       </header>
+    <div style="display: flex; flex-direction: row ;">
+    <div>
+    <div class="navbar">
+        <div class="home" id="nam">
+            <div class="pic">
+                <img src="images/Collegeimage.jpeg" id="profilePic"></div>
+            <p class="text" id="appendedValues"> </p>
+           </div>
+        <div class="home">
+            <i class="bi bi-calendar-date-fill icon"></i>
+            <form id="timetablebutton">
+            <button class="text">TIME TABLE</button></form>
+        </div>
+        <div class="home">
+            <i class="bi bi-pencil-square icon"></i>
+            <button class="text" id="assignmentbutton">ASSIGNMENT</button>
+        </div>
+        <div class="home">
+            <i class="bi bi-pie-chart-fill icon"></i>
+            <form id="resultForm">
+                <button class="text" type="submit" id="resultdata">RESULT</button>
+            </form>
+
+        </div>
+        <div class="home">
+            <i class="bi bi-newspaper icon"></i>
+            <button class="text"  onclick="showNews('news')">NEWS</button>
+        </div>
+        <div class="home">
+            <i class="bi bi-box-arrow-left icon"></i>
+            <button class="text" id="logout">Log Out</button>
+        </div>
+    </div>
+   
+</div>
+<div id="assignmentsContainer" class="content">
+    <!-- Generated links will appear here -->
+    
+
+    
+</div>
+<div id="marksdata" style="display: none; width: 900px; height: 500px; " >
+    <h3 style="text-align: center;">MARKS</h3>
+    <table border="1" style="width: 100%;">
+        <thead>
+            <tr>
+               
+                <th class="tablehead">Subject</th>
+                <th class="tablehead">Marks</th>
+               
+            </tr>
+        </thead>
+        <tbody id="dataBody" ></tbody>
+    </table>
+</div>
+<div style="display: flex; justify-content: center; align-items: center; text-align: center; height: 100vh; width: 100%;">
+    <img src="" alt="" id="sectionimage" style="display: block; max-width: 100%; max-height: fit-content;" >
+</div>
+<div class="news" id="news" style="display: none;">
+    <h2>News</h2>
+    <div class="scrolling-text">
+        <h2>News Table</h2>
+    </div>
+</div>
+    
+<!-- ... (previous code) -->
+
+
+<script>
+      
+        // Add an event listener to the button
+        document.getElementById('logout').addEventListener('click', function() {
+            // Redirect to the login page
+            window.location.href = 'index.html';
+        });
+   
+        document.addEventListener('DOMContentLoaded', function () {
+    document.getElementById('assignmentbutton').addEventListener('click', function () {
+        console.log('Assignment button clicked');
+        fetchAssignments();
+    });
+
+    function fetchAssignments() {
+        fetch('/assignments')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+                return response.json();
+            })
+            .then(assignments => {
+                console.log('Fetched assignments:', assignments);
+                const assignmentsContainer = document.getElementById('assignmentsContainer');
+                
+                assignmentsContainer.innerHTML = '';
+
+                assignments.forEach(assignment => {
+                    // Create a link to navigate to the assignment page
+                    const assignmentLink = document.createElement('a');
+                    const iframeelement=document.createElement('iframe');
+                    iframeelement.src=`uploads/${assignment.pdfName}.pdf`;
+                    assignmentLink.href = `uploads/${assignment.pdfName}.pdf`; // Update the URL path as needed
+                    assignmentLink.innerHTML = `Download`;
+                   iframeelement.id='pdfFrame'
+                    assignmentLink.target='_blank';
+                    assignmentLink.id='downloadButton';
+                    // Append the assignment link to the container
+                    assignmentsContainer.appendChild(iframeelement);
+                    assignmentsContainer.appendChild(document.createElement('br'));
+                    assignmentsContainer.appendChild(assignmentLink);
+                    assignmentsContainer.appendChild(document.createElement('br'));
+                });
+            })
+            .catch(error => {
+                console.error('Error fetching assignments:', error);
+            });
+    }
+});
+
+
+document.addEventListener('DOMContentLoaded', function () {
+    const marksdata = document.getElementById('marksdata');
+    const resultform = document.getElementById('resultForm');
+
+    // Add an event listener to the form
+    resultform.addEventListener('click', function (event) {
+        event.preventDefault(); // Prevent the default form submission
+
+        // Fetch data from your API endpoint using the obtained values
+        fetch('/studentresult', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+        
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+                return response.json();
+            })
+            .then(data => {
+                // Log the fetched data to debug
+                console.log('Fetched data:', data);
+
+                // Iterate over the data and append rows to the table
+                const tbody = document.getElementById('dataBody');
+                tbody.innerHTML = ''; // Clear existing data
+                data.forEach(entry => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td class="custom-cell">${entry.subject}</td>
+                        <td class="custom-cell">${entry.marks}</td>
+                    `;
+                    tbody.appendChild(row);
+                });
+
+                // Show the table after fetching and updating data
+                marksdata.style.display = data.length > 0 ? 'block' : 'none';
+            })
+            .catch(error => {
+                console.error('Error fetching data:', error);
+            });
+    });
+});
+document.addEventListener('DOMContentLoaded', function () {
+    const studentNameEncoded = getCookie('student_name');
+    const studentName = decodeURIComponent(studentNameEncoded);
+    console.log('Student Name:', studentName);
+
+    // Use the studentName variable as needed in your page
+    const nameDisplay = document.getElementById('appendedValues');
+    
+    // Check if studentName is not null (i.e., the name parameter is present in the cookie)
+    if (studentName !== null) {
+        // Update the content of the HTML element with the student's name
+        nameDisplay.textContent = `Welcome, ${studentName}!`;
+    } else {
+        // Handle the case where the name parameter is not present
+        nameDisplay.textContent = 'Welcome!';
+    }
+});
+
+function getCookie(name) {
+    const value = `; ${document.cookie}`;
+    const parts = value.split(`; ${name}=`);
+    if (parts.length === 2) return parts.pop().split(';').shift();
+}
+
+
+document.addEventListener('DOMContentLoaded', function () {
+    const encodedsection = getCookie('section');
+    const decodedsection = decodeURIComponent(encodedsection);
+    console.log("The decoded section is: " + decodedsection + " Hi!");
+
+    const timetablebutton = document.getElementById('timetablebutton');
+    timetablebutton.addEventListener('submit', function (event) {
+        handleTimetableButtonClick(event, decodedsection);
+    });
+});
+
+function handleTimetableButtonClick(event, decodedsection) {
+    event.preventDefault();
+    const sectionImage = document.getElementById('sectionimage');
+
+    if (decodedsection === '1') {
+        sectionImage.src = './images/CS1.jpg';
+    } else if (decodedsection === '2') {
+        console.log('hello');
+        sectionImage.src = './images/CS1.jpg';
+    } else if (decodedsection === '3') {
+        sectionImage.src = './images/CS3.jpg';
+    }
+}
+
+function getCookie(section) {
+    const value = `; ${document.cookie}`;
+    const parts = value.split(`; ${section}=`);
+    if (parts.length === 2) return parts.pop().split(';').shift();
+}
+
+
+
+
+const container = document.querySelector('.new');
+
+document.getElementById('new').style.display = 'none';
+
+function showNews(){
+    document.getElementById('news').style.display = 'block';
+    
+fetch('run.txt')
+.then(response => response.text())
+.then(text => {
+document.querySelector('.scrolling-text').textContent = text ;
+    
+})
+.catch(error => console.error('Error fetching the text file:', error));
+container.classList.add('highlight');
+}
+
+
+  const btn1 = document.getElementById('btn1');
+  const btn2 = document.getElementById('btn2');
+  const btn3 = document.getElementById('btn3');
+  const btn4 = document.getElementById('btn4');
+  const btn5 = document.getElementById('btn5');
+
+  const data1 = document.getElementById('data1');
+  const data2 = document.getElementById('data2');
+  const data3 = document.getElementById('data3');
+  const data4 = document.getElementById('data4');
+
+
+
+
+  
+function showData(data) {
+      if (currentData !== null) {
+          currentData.style.display = 'none'; // Hide previously displayed data
+      }
+      data.style.display = 'block'; // Show new data
+      currentData = data;
+      container.classList.remove('highlight') // Set current data to the displayed one
+      document.getElementById('news').style.display = 'none';
+  }
+</script>
+
+<!-- ... (remaining code) -->
+
+    
+</body>
+</html>

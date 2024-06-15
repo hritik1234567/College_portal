@@ -1,0 +1,289 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+}
+
+.head {
+    background-color: #004999;
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    padding: 10px;
+}
+
+button {
+    border: none;
+    text-align: center;
+    font-size: medium;
+    background: transparent;
+    cursor: pointer;
+}
+
+.logo {
+    height: 70px;
+    width: 70px;
+}
+
+.headpara {
+    text-align: center;
+    font-family: 'Arial', sans-serif;
+    font-size: 24px;
+    color: #fff;
+    margin: auto;
+}
+
+.navbar{display: flex;
+    flex-direction: column;
+    padding: 0;
+    margin: 0;
+    height: 100vh;
+    width: 60px;
+    background-color:lightgray;
+    transition: width 150ms ease;
+    position: sticky;
+    align-items: center;
+    }
+    
+    .home{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-size: large;
+    padding: 10px;
+    height: 3rem;
+    filter: grayscale(0) opacity(1);
+    transition: var(600ms);
+    margin-top: 25px;
+   width: 150px;
+   margin-left: 5px;
+ 
+    }
+.home:first-child{
+    padding-top: 0;
+    margin-top: 0;
+    
+}
+    
+.home:last-child {
+    padding-top: 70px;
+    margin-top:55%;
+}
+
+.home:hover {
+    filter: grayscale(0%) opacity(1);
+    background-color: lightgray;
+    color: black;
+}
+
+.home p {
+    
+    margin-top: 5px;
+    padding-top: 10px;
+}
+
+.text {
+    display: none;
+    margin-left: 0;
+    text-align: center;
+    
+    
+}
+
+.icon {
+    min-width: 1.5rem;
+    height: 1.5rem;
+    margin: 0;
+    fill: red;
+    transition: fill 0.6ms;
+}
+
+.navbar:hover {
+    width: 180px;
+}
+
+.navbar:hover .text {
+    display: block;
+}
+
+@media screen and (max-width: 600px) {
+    .headpara {
+        font-size: 20px;
+        text-align: center;
+    }
+    .logo {
+        height: 40px;
+        width: 40px;
+    }
+}
+
+.home:hover .icon {
+    color: red;
+}
+
+
+
+.inputhidden {
+    display: none;
+}
+
+/* Style the select element */
+#selectOptionsection,
+#selectOptionsubject {
+    padding: 12px; /* Adjusted padding for the select element */
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #fff;
+    width: 300px;
+    margin-top: 10px;
+}
+
+/* Style the input field */
+#sectioninput,
+#subjectinput {
+    padding: 12px; /* Adjusted padding for the input element */
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #fff;
+    margin-top: 10px;
+}
+
+/* Style the label elements */
+label {
+    display: block;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+/* Style the select element when it's focused */
+#selectOptionsection:focus,
+#selectOptionsubject:focus,
+#sectioninput:focus,
+#subjectinput:focus {
+    outline: none;
+    border-color: #007BFF;
+}
+
+/* Custom styles for the "Search" button */
+.btn-dark {
+    background-color: #343a40; /* Dark background color */
+    color: #ffffff; /* Text color */
+    border: none; /* Remove the default button border */
+    border-radius: 10px; /* Rounded corners */
+    padding: 10px 20px; /* Padding to adjust button size */
+    font-size: 16px; /* Font size */
+    transition: background-color 0.3s; /* Smooth background color transition on hover */
+}
+
+.btn-dark:hover {
+    background-color: #292b2c; /* Darker background color on hover */
+}
+
+#teacherData {
+    margin-top: 20px;
+    width: 100%;
+    overflow-x: auto;
+}
+
+/* Add your additional styles here */
+
+/* Existing styles above this line remain unchanged */
+
+/* Updated styles for the form */
+.upload-form {
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    width: 100%;
+    max-width: 600px; /* Limit the maximum width for better readability on larger displays */
+    margin-top: 20px;
+    background-color: #f8f9fa; /* Light background color */
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); /* Add a subtle box shadow */
+}
+
+.upload-form label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #495057; /* Dark color for better contrast */
+}
+
+.upload-form input[type="file"] {
+    width: 100%;
+    padding: 10px; /* Adjusted padding for better spacing */
+    margin-bottom: 15px; /* Increased margin for better spacing */
+    border: 1px solid #ced4da; /* Light border color */
+    border-radius: 5px;
+    background-color: #fff; /* White background color */
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1); /* Add a subtle inset shadow */
+    font-size: 1.2rem;
+}
+
+.upload-form button {
+    width: 100%;
+    background-color: #007BFF; /* Primary color for the button */
+    color: #fff;
+    padding: 12px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.upload-form button:hover {
+    background-color: #0056b3; /* Darker color on hover */
+}
+.pic {
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    overflow: hidden;
+   
+}
+
+.pic img {
+    height: 100%;
+    width: 100%;
+    z-index: -1;
+    object-fit: cover;
+    opacity: 1;
+    background: none; /* Add this line to remove any residual background color */
+}
+
+/* Existing styles below this line remain unchanged */
+
+/* Add your existing styles */
+/* Existing styles */
+
+/* Styles for the EDIT button container */
+
+.pic {
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    overflow: hidden;
+   
+}
+
+.pic img {
+    height: 100%;
+    width: 100%;
+    z-index: -1;
+    object-fit: cover;
+    opacity: 1;
+    background: none; /* Add this line to remove any residual background color */
+}
+
+
+
+
+
+
+
